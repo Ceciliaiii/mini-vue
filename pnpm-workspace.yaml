@@ -1,0 +1,3 @@
+packages:
+# 在 packages 管理仓库
+  - 'packages/*'

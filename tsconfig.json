@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",  // 输出目录
+    "sourceMap": true,  // 采用sourceMap
+    "target": "es2016", // 目标语法
+    "module": "esnext", // 模块类型
+    "strict": false, // 严格模式
+    "moduleResolution": "node", // 模块解析策略
+    "resolveJsonModule": true,  // 解析json模块
+    "esModuleInterop": true, // 允许通过es6语法引入commonJs模块
+    "jsx": "preserve", // jsx不转义
+    "lib": ["esnext", "dom"], // 支持的类库 esnext 及 dom
+  }
+}
