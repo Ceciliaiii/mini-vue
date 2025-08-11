@@ -22,6 +22,14 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
 
+  packages/reactivity:
+    dependencies:
+      '@vue/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/shared: {}
+
 packages:
 
   '@babel/helper-string-parser@7.27.1':
