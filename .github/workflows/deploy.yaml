@@ -1,0 +1,78 @@
+name: TDeploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Lint and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run tests
+        run: npm run test
+
+  build:
+    name: Build docs
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build docs
+        run: npm run docs:build
+
+  deploy:
+    name: Deploy to github Pages
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build docs
+        run: npm run docs:build
+
+      - name: Deploy to github Pages
+        uses: yanglbme/github-pages-action@main
+        with:
+          github_token: ${{ secrets.github_TOKEN }}
+          github_username: your-github-username
+          github_repo: your-github-repo-name
+          # branch: gh-pages # 建议部署到独立分支
+          directory: ./docs/.vitepress/dist
+          force_refresh: true
