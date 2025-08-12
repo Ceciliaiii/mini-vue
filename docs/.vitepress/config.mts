@@ -9,11 +9,11 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-       { text: 'Reactivity', link: '/1-reactivity/1-响应式原理' },
+       { text: '开始', link: '/principles/1-reactive.md' },
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/Ceciliaiii/mini-vue' }
     ]
   }
 })
