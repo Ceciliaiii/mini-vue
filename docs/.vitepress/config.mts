@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import sidebar from '../sideBar' // 导入侧边栏配置
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -7,9 +8,10 @@ export default defineConfig({
   base: '/mini-vue/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    sidebar: sidebar,
     nav: [
       { text: 'Home', link: '/' },
-       { text: '开始', link: '/principles/1-reactivity/1-reactive.md' },
+       { text: '开始', link: '/1-reactivity/1-reactive.md' },
     ],
 
     socialLinks: [

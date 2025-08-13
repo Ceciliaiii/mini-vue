@@ -8,14 +8,14 @@ hero:
   actions:
     - theme: brand
       text: 开始
-      link: /principles/1-reactivity/1-reactive.md
+      link: /1-reactivity/1-reactive.md
     - theme: alt
       text: 使用示例
-      link: /examples/1-reactivity/1-reactive.md
+      link: /examples.md
 
 features:
   - title: reactivity
     details: 响应式api
-    link: /principles/1-reactivity/1-reactive.md
+    link: /1-reactivity/1-reactive.md
     linkText: Learn more
 ---
