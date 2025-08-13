@@ -9,7 +9,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-       { text: '开始', link: '/principles/1-reactive.md' },
+       { text: '开始', link: '/principles/1-reactivity/1-reactive.md' },
     ],
 
     socialLinks: [

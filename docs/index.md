@@ -3,19 +3,19 @@
 layout: home
 
 hero:
-  name: "mini-vue"
+  name: "Mini-Vue"
   text: "实现最简的Vue3模型"
   actions:
     - theme: brand
       text: 开始
-      link: /principles/1-reactive.md
+      link: /principles/1-reactivity/1-reactive.md
     - theme: alt
       text: 使用示例
-      link: /examples/1-reactive.md
+      link: /examples/1-reactivity/1-reactive.md
 
 features:
-  - title: reactive
+  - title: reactivity
     details: 响应式api
-    link: /principles/1-reactive.md
+    link: /principles/1-reactivity/1-reactive.md
     linkText: Learn more
 ---
