@@ -1,3 +1,5 @@
+import { track } from './reactiveEffect'
+
 // 响应标识符，用于判断是否被代理
 export enum ReactiveFlags {
     IS_REACTIVE = '__v_isReactive',
@@ -14,6 +16,8 @@ export const mutableHandlers:ProxyHandler<any> = {
         // 当取值的时候 应该让响应式属性 和 effect 映射起来
 
         // 依赖收集
+        track(target, key)   // 收集这个对象上的属性，和effect关联
+
         return Reflect.get(target, key, recevier)
     },
     set(target, key, value, recevier) {
