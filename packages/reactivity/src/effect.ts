@@ -13,6 +13,21 @@ export function effect(fn, options?) {
 
 export let activeEffect;
 
+function preCleanEffect(effect) {
+  effect._depsLength = 0
+  effect._trackId++
+}
+
+function postCleanEffect(effect) {
+  if(effect.deps.length > effect._depsLength) {
+    for(let i = effect._depsLength ; i < effect.deps.length ; i++) {
+      cleanDepEffect(effect.deps[i], effect)  // 删除映射表中对应的effect
+    }
+
+    effect.deps.length = effect._depsLength  // 更新依赖列表的长度
+  }
+}
+
 class ReactiveEffect {
 
   // 用于记录当前effect执行次数
@@ -32,8 +47,14 @@ class ReactiveEffect {
     let lastEffect = activeEffect;
     try {
       activeEffect = this;
+
+      // effect重新执行前，需要将上一次的依赖清空  effect.deps
+      preCleanEffect(this)
+      
       return this.fn(); // 依赖收集
     } finally {
+
+      postCleanEffect(this)
       activeEffect = lastEffect;
     }
   }
@@ -42,8 +63,38 @@ class ReactiveEffect {
   }
 }
 
+function cleanDepEffect(dep, effect) {
+  dep.delete(effect)
+
+  if(dep.size == 0) {
+      dep.cleanup()  // map为空，则删除旧的映射表
+    }
+}
+
  
 export function trackEffect(effect, dep) {
+
+  // 重新收集依赖，将不需要的移除掉
+  if(dep.get(effect) !== effect._trackId) {
+    // 更新effect执行次数
+    dep.set(effect, effect._trackId)
+
+    let oldDep = effect.deps[effect._depsLength] 
+    // 如果没有存储过依赖
+      if(oldDep !== dep) {
+        if(oldDep) {
+          // 删除掉旧依赖
+          cleanDepEffect(oldDep, effect)
+        }
+        // 添加新依赖
+        effect.deps[effect._depsLength++] = dep
+      } else {
+        effect._depsLength++
+      }
+    
+  }
+
+
   dep.set(effect, effect._trackId)
 
   // effect和dep关联起来
