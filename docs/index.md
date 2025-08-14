@@ -4,7 +4,8 @@ layout: home
 
 hero:
   name: "Mini-Vue"
-  text: "实现最简的Vue3模型"
+  text: "Vue3开发手册"
+  tagline: "实现最简单的Vue模型"
   actions:
     - theme: brand
       text: 开始
