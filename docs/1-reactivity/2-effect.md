@@ -9,13 +9,14 @@
 在此处，我们将 **副作用** `_effect` 比喻为 **监工**
 
  - 接收两个参数：函数和选项
- - 创建`ReactiveEffect`实例，管理函数执行过程
+ - 创建 `ReactiveEffect` 实例，管理函数执行过程
  - 执行一次初始化（触发首次依赖收集）
- - 返回`ReactiveEffect`实例给外部操作
+ - 返回 `ReactiveEffect` 实例给外部操作
 
 ```ts
 export function effect(fn, options?) {
-  // 创建一个响应式effect，数据变化后可以重新执行
+
+  // 创建一个响应式effect，数据变化后触发
   const _effect = new ReactiveEffect(fn, () => {
     _effect.run(); // 数据变了就重新执行
   });

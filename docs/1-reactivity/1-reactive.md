@@ -84,6 +84,21 @@ function createReactiveObject(target) {
 }
 ```
  - 避免重复代理（标识检查普通对象 、 缓存检查代理对象）
+ ```ts
+    // 例如：
+    const man = {
+        age: 18,
+        name: wang
+    }
+
+    // 1.重复代理
+    const state1 = reactive(man)
+    const state2 = reactive(man)
+
+    // 2.代理之后再代理
+    const state1 = reactive(man)
+    const state2 = reactive(state1)
+ ```
  - 使用 WeakMap 缓存代理结果（自动垃圾回收，不内存泄漏）
 
 

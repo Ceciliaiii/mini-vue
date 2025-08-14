@@ -1,4 +1,4 @@
-import { track } from './reactiveEffect'
+import { track, trigger } from './reactiveEffect'
 
 // 响应标识符，用于判断是否被代理
 export enum ReactiveFlags {
@@ -22,8 +22,17 @@ export const mutableHandlers:ProxyHandler<any> = {
     },
     set(target, key, value, recevier) {
         // 找到属性 让对应的effect重新执行
+
+        let oldValue = target[key]
+
+        let result = Reflect.set(target, key, value, recevier)
+
+        if(oldValue !== value) {
+            // 需要触发页面更新
+            trigger(target, key, value , oldValue)
+        }
         
         // 触发更新
-        return Reflect.set(target, key, value, recevier)
+        return result
     }, 
 }
