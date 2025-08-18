@@ -44,6 +44,7 @@ class ReactiveEffect {
   _trackId = 0
   deps = []
   _depsLength = 0
+  _running = 0
 
   public active = true; // 创建的effect是响应式的
   // fn 用户编写的函数
@@ -61,9 +62,11 @@ class ReactiveEffect {
       // effect重新执行前，需要将上一次的依赖清空  effect.deps
       preCleanEffect(this)
       
+      this._running++
+
       return this.fn(); // 依赖收集
     } finally {
-
+      this._running--
       postCleanEffect(this)
       activeEffect = lastEffect;
     }
@@ -115,8 +118,15 @@ export function trackEffect(effect, dep) {
 
 export function triggerEffects(dep) {
   for(const effect of dep.keys()) {
+
+   // 如果不是正在执行，才能执行
+  if(!effect._running) {
+
     if(effect.scheduler) {
-      effect.scheduler()
+
+        effect.scheduler()
+      }
+
     }
   }
 }
