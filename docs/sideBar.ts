@@ -9,7 +9,8 @@ export default {
                 { text: '2. effect', link: '2-effect' },
                 { text: '3. 依赖收集 & 触发更新', link: '3-依赖收集&触发更新' },
                 { text: '4. 依赖清理', link: '4-依赖清理' },
-                { text: '4. effect调度', link: '5-scheduler' }
+                { text: '5. effect调度', link: '5-scheduler' },
+                { text: '6. 防止递归调用 & 深度代理', link: '6-防止递归调用&深度代理' },
               ]
             }
           ]
