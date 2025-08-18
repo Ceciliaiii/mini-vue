@@ -8,7 +8,17 @@ export function effect(fn, options?) {
 
   _effect.run();
 
-  return _effect;
+
+  if(options) {
+    Object.assign(_effect, options)  // 用户传递的执行函数覆盖掉原本的scheduler
+  }
+
+  // 能让外界获取到执行函数
+  const runner = _effect.run.bind(_effect)
+  runner.effect = _effect  // 可以在run方法上获取到effect的引用
+
+
+  return runner;
 }
 
 export let activeEffect;
