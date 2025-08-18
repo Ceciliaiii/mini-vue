@@ -34,3 +34,9 @@ function createReactiveObiect(target) {
 export function reactive(target) {
     return createReactiveObiect(target)
 }
+
+
+// 若ref里的数据类型是obj，用回reactive方法
+export function toReactive(value) {
+  return isObject(value) ? reactive(value) : value
+}
