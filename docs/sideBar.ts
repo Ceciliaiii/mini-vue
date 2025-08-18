@@ -11,6 +11,7 @@ export default {
                 { text: '4. 依赖清理', link: '4-依赖清理' },
                 { text: '5. effect调度', link: '5-scheduler' },
                 { text: '6. 防止递归调用 & 深度代理', link: '6-防止递归调用&深度代理' },
+                { text: '7. ref', link: '7-ref' },
               ]
             }
           ]

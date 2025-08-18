@@ -79,3 +79,32 @@ obj.count++;
 // 最终只会在最后一次修改后 100ms 执行一次 effect
 ```
 每一次修改数据都会重新执行 debounceScheduler，都会清除掉上一次执行的计时器
+
+## ref
+创建与使用
+```ts
+// 1. 导入ref函数
+import { ref } from './ref'
+
+// 2. 创建ref对象（支持基本类型和对象）
+const count = ref(0) // 基本类型
+const user = ref({ name: '张三' }) // 对象类型
+
+// 3. 访问值（必须通过.value属性）
+console.log(count.value) // 0
+console.log(user.value.name) // 张三
+
+// 4. 修改值（通过.value属性）
+count.value++ // 变为1
+user.value.name = '李四' // 修改对象属性
+```
+在 effect 中使用
+```ts
+effect(() => {
+  // 访问ref值时会自动收集依赖
+  console.log(`当前计数: ${count.value}`)
+})
+
+// 修改值会触发effect重新执行
+count.value = 100 // 控制台会打印更新后的值
+```
