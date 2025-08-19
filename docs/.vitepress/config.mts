@@ -11,7 +11,8 @@ export default defineConfig({
     sidebar: sidebar,
     nav: [
       { text: 'Home', link: '/' },
-       { text: '开始', link: '/1-reactivity/1-reactive.md' },
+      { text: '开始', link: '/1-reactivity/1-reactive' },
+      { text: '使用示例', link: '/examples' },
     ],
 
     socialLinks: [
