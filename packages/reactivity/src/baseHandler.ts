@@ -1,11 +1,8 @@
 import { isObject } from '@vue/shared'
 import { track, trigger } from './reactiveEffect'
 import { reactive } from './reactive'
+import { ReactiveFlags } from './constants'
 
-// 响应标识符，用于判断是否被代理
-export enum ReactiveFlags {
-    IS_REACTIVE = '__v_isReactive',
-}
 
 export const mutableHandlers:ProxyHandler<any> = {
     // 拦截代理
