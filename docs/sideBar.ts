@@ -13,6 +13,7 @@ export default {
                 { text: '6. 防止递归调用 & 深度代理', link: '6-防止递归调用&深度代理' },
                 { text: '7. ref', link: '7-ref' },
                 { text: '8. toRef & toRefs & proxyRefs', link: '8-toRef & toRefs & proxyRefs' },
+                { text: '9. computed', link: '9-computed' },
               ]
             }
           ]
