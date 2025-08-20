@@ -1,6 +1,14 @@
 # watch
 通过 `doWatch` 函数创建一个 `ReactiveEffect`，利用响应式系统的依赖收集机制，实现对数据源的监听。
 
+## 入口
+参数接收：数据、用户的回调方法、deep属性
+```ts
+export function watch(source, cb, options = {} as any) {
+    return doWatch(source, cb, options)
+}
+```
+
 ## `traverse`：深度遍历触发依赖收集
 递归遍历对象的所有属性，触发它们的 `getter`，所有属性都收集当前 watch 的 effect，支持深度控制和循环引用检测
 ```ts
