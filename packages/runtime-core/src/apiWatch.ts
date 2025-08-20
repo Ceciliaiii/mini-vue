@@ -8,6 +8,12 @@ export function watch(source, cb, options = {} as any) {
 }
 
 
+export function watchEffect(source, options = {}) {
+
+    // 没有cb
+    return doWatch(source, null, options as any)
+}
+
 
 // currentDepth 控制 depth 已经遍历到了哪一层
 function traverse(source, depth, currentDepth = 0, seen = new Set()) {
@@ -59,10 +65,17 @@ function doWatch(source, cb, { deep, immediate }) {
     let oldValue
 
     const job = () => {
-        const newValue = effect.run()
-        cb(newValue, oldValue)
 
-        oldValue = newValue
+        if(cb) {
+            const newValue = effect.run()
+            cb(newValue, oldValue)
+
+            oldValue = newValue
+        }
+        else {
+            effect.run()   // watchEffect
+        }
+        
     }
 
     const effect = new ReactiveEffect(getter, job)
@@ -79,6 +92,7 @@ function doWatch(source, cb, { deep, immediate }) {
     }
     else {
         // watchEffect
+        effect.run()  // 直接执行
     }
    
 }
