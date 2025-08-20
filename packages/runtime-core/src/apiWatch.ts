@@ -1,4 +1,4 @@
-import { isObject } from "@vue/shared"
+import { isFunction, isObject } from "@vue/shared"
 import { ReactiveEffect } from "@vue/reactivity/src/effect"
 import { isReactive, isRef } from "@vue/reactivity"
 
@@ -35,7 +35,7 @@ function traverse(source, depth, currentDepth = 0, seen = new Set()) {
 
 
 
-function doWatch(source, cb, { deep }) {
+function doWatch(source, cb, { deep, immediate }) {
 
     const reactiveGetter = (source) => traverse(source, deep === false ? 1 : undefined)
 
@@ -47,9 +47,14 @@ function doWatch(source, cb, { deep }) {
     if(isReactive(source)) {
         getter = () => reactiveGetter(source)
     } 
+    // 或者对象属性、变量必须是ref
     else if (isRef(source)) {
         getter = () => source.value
-    }
+    } 
+    // 参数是function
+    else if(isFunction(source)) {
+        getter = () => source
+    } 
    
     let oldValue
 
@@ -62,5 +67,18 @@ function doWatch(source, cb, { deep }) {
 
     const effect = new ReactiveEffect(getter, job)
 
-    oldValue = effect.run()
+
+    if(cb) {
+            if(immediate) {   // 立即先执行一次用户的回调，传递新值和老值
+                    job()
+                }
+                else {
+                    oldValue = effect.run()
+                }
+
+    }
+    else {
+        // watchEffect
+    }
+   
 }
