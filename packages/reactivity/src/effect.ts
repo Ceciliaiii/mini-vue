@@ -122,11 +122,11 @@ export function trackEffect(effect, dep) {
   }
 
 
-  dep.set(effect, effect._trackId)
+  // dep.set(effect, effect._trackId)
 
   // effect和dep关联起来
   // effect.deps.push(dep)
-  effect.deps[effect._depsLength++] = dep
+  // effect.deps[effect._depsLength++] = dep
 }
 
 
