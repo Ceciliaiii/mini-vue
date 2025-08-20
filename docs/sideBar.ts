@@ -23,7 +23,8 @@ export default {
                 collapsible: true, // 可折叠
                 collapsed: false,
                 items: [
-                  { text: '1. watch', link: '1-watch' }
+                  { text: '1. watch', link: '1-watch' },
+                  { text: '2. watchEffect', link: '2-watchEffect' }
                  ]
               }
           ],
@@ -50,7 +51,8 @@ export default {
                   collapsible: true,
                   collapsed: false,
                   items: [
-                    { text: '1. watch', link: '1-watch' }
+                    { text: '1. watch', link: '1-watch' },
+                    { text: '2. watchEffect', link: '2-watchEffect' }
                   ]
                 }
               ]
