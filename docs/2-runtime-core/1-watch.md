@@ -54,7 +54,13 @@ function doWatch(source, cb, { deep }) {
     deep === false ? 1 : undefined  // 控制是否深度监听
   )
   
-  let getter = () => reactiveGetter(source)
+  let getter
+
+    // watch对象必须是reactive
+    if(isReactive(source)) {
+        getter = () => reactiveGetter(source)
+    }
+    
   let oldValue
   
   // 定义数据变化时的回调逻辑

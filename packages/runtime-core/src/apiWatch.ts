@@ -1,5 +1,6 @@
 import { isObject } from "@vue/shared"
 import { ReactiveEffect } from "@vue/reactivity/src/effect"
+import { isReactive, isRef } from "@vue/reactivity"
 
 
 export function watch(source, cb, options = {} as any) {
@@ -39,7 +40,17 @@ function doWatch(source, cb, { deep }) {
     const reactiveGetter = (source) => traverse(source, deep === false ? 1 : undefined)
 
     // 创建一个可以给ReactiveEffect来使用的getter，需要对这个对象进行遍历取值操作，关联当前的ReactiveEffect
-    let getter = () => reactiveGetter(source)
+
+    let getter
+
+    // watch对象必须是reactive
+    if(isReactive(source)) {
+        getter = () => reactiveGetter(source)
+    } 
+    else if (isRef(source)) {
+        getter = () => source.value
+    }
+   
     let oldValue
 
     const job = () => {
