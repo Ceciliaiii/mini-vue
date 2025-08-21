@@ -24,7 +24,8 @@ export default {
                 collapsed: false,
                 items: [
                   { text: '1. watch', link: '1-watch' },
-                  { text: '2. watchEffect', link: '2-watchEffect' }
+                  { text: '2. watchEffect', link: '2-watchEffect' },
+                  { text: '3. 清理函数', link: '3-清理函数' }
                  ]
               }
           ],
@@ -52,7 +53,8 @@ export default {
                   collapsed: false,
                   items: [
                     { text: '1. watch', link: '1-watch' },
-                    { text: '2. watchEffect', link: '2-watchEffect' }
+                    { text: '2. watchEffect', link: '2-watchEffect' },
+                    { text: '3. 清理函数', link: '3-清理函数' }
                   ]
                 }
               ]
