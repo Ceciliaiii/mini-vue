@@ -64,11 +64,26 @@ function doWatch(source, cb, { deep, immediate }) {
    
     let oldValue
 
+
+    let clean
+    const onCleanup = (fn) => {
+        clean = () => {
+            fn()
+
+            clean = undefined
+        }
+
+    }
+
     const job = () => {
 
         if(cb) {
             const newValue = effect.run()
-            cb(newValue, oldValue)
+
+            if(clean) {
+                clean()   // 在执行回调前，先调用上一次的清理操作进行清理
+            }
+            cb(newValue, oldValue, onCleanup)
 
             oldValue = newValue
         }
@@ -95,4 +110,10 @@ function doWatch(source, cb, { deep, immediate }) {
         effect.run()  // 直接执行
     }
    
+
+    const unwatch = () => {
+        effect.stop()
+    }
+
+    return unwatch()
 }
