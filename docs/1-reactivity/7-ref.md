@@ -42,7 +42,8 @@ function trackRefValue(ref) {
   if (activeEffect) {
     // 为ref创建 独立的依赖集合dep
     // 并将当前活跃的effect加入其中
-    trackEffect(activeEffect, (ref.dep = createDep(...)))
+    // 检查当前是否有之前收集的依赖，没有再新建映射表
+    trackEffect(activeEffect, (ref.dep = ref.dep || createDep(...)))
   }
 }
 ```
