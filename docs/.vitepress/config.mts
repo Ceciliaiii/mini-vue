@@ -6,7 +6,23 @@ export default defineConfig({
   title: "Mini-Vue",
   description: "一个自己实现的vue3 API文档",
   base: '/mini-vue/',
+  sitemap: {
+    hostname: 'https://Ceciliaiii.github.io/mini-vue/',
+  },
+  lastUpdated: true,
+  markdown: {
+    image: {
+      lazyLoading: true, // 图片懒加载
+    },
+  },
+  ignoreDeadLinks: true, // 忽略死链
   themeConfig: {
+     editLink: {
+      pattern: 'https://github.com/Ceciliaiii/mini-vue/edit/main/docs/:path',
+    },
+    search: {
+      provider: 'local',
+    },
     // https://vitepress.dev/reference/default-theme-config
     sidebar: sidebar,
     nav: [
