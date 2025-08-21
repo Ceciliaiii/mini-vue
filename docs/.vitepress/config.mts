@@ -5,7 +5,7 @@ import sidebar from '../sideBar' // 导入侧边栏配置
 export default defineConfig({
   title: "Mini-Vue",
   description: "一个自己实现的vue3 API文档",
-  base: '/docs/',
+  base: '/docs/mini-vue/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     sidebar: sidebar,
