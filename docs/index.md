@@ -25,6 +25,6 @@ features:
     linkText: Learn more
   - title: runtime-dom
     details: 浏览器环境适配层
-    link: /2-runtime-core/1-watch.md
+    link: /3-runtime-dom/1-nodeOps.md
     linkText: Learn more
 ---
