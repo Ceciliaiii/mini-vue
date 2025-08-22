@@ -16,11 +16,15 @@ hero:
 
 features:
   - title: reactivity
-    details: 响应式api
+    details: 实现数据响应式
     link: /1-reactivity/1-reactive.md
     linkText: Learn more
   - title: runtime-core
-    details: 运行核心
+    details: 框架运行核心
+    link: /2-runtime-core/1-watch.md
+    linkText: Learn more
+  - title: runtime-dom
+    details: 浏览器环境适配层
     link: /2-runtime-core/1-watch.md
     linkText: Learn more
 ---
