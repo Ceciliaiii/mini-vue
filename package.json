@@ -6,7 +6,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node scripts/dev.js reactivity -f esm",
+    "dev": "node scripts/dev.js runtime-dom -f esm",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
