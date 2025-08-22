@@ -12,7 +12,7 @@ hero:
       link: /1-reactivity/1-reactive.md
     - theme: alt
       text: 使用示例
-      link: /examples/examples.md
+      link: /examples/1-reactivity/1-reactive.md
 
 features:
   - title: reactivity
