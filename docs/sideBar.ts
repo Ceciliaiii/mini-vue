@@ -18,26 +18,27 @@ export default {
                 ]
               },
               {
-                text: '2-runtime-core',
-                base: '/2-runtime-core/',
-                collapsible: true, // 可折叠
-                collapsed: false,
-                items: [
-                  { text: '1. watch', link: '1-watch' },
-                  { text: '2. watchEffect', link: '2-watchEffect' },
-                  { text: '3. 清理函数', link: '3-清理函数' }
-                 ]
-              },
-              {
-                text: '3-runtime-dom',
-                base: '/3-runtime-dom/',
+                text: '2-runtime-dom',
+                base: '/2-runtime-dom/',
                 collapsible: true, // 可折叠
                 collapsed: false,
                 items: [
                   { text: '1. nodeOps', link: '1-nodeOps' },
                   { text: '2. patchProp', link: '2-patchProp' }
                  ]
-              }
+              },
+              {
+                text: '3-runtime-core',
+                base: '/3-runtime-core/',
+                collapsible: true, // 可折叠
+                collapsed: false,
+                items: [
+                  { text: '1. watch', link: '1-watch' },
+                  { text: '2. watchEffect', link: '2-watchEffect' },
+                  { text: '3. 清理函数', link: '3-清理函数' },
+                  { text: '4. 虚拟DOM渲染', link: '4-虚拟dom渲染' }
+                 ]
+              },
           ],
           '/examples/': [
             {
@@ -57,8 +58,17 @@ export default {
                    ]
                 },
                 {
-                  text: '2-runtime-core',
-                  base: '/examples/2-runtime-core/',
+                  text: '2-runtime-dom',
+                  base: '/examples/2-runtime-dom/',
+                  collapsible: true,
+                  collapsed: false,
+                  items: [
+                    { text: '1. 节点元素操作', link: '1-节点元素操作' },
+                  ]
+                },
+                {
+                  text: '3-runtime-core',
+                  base: '/examples/3-runtime-core/',
                   collapsible: true,
                   collapsed: false,
                   items: [
@@ -67,15 +77,7 @@ export default {
                     { text: '3. 清理函数', link: '3-清理函数' }
                   ]
                 },
-                {
-                  text: '3-runtime-dom',
-                  base: '/examples/3-runtime-dom/',
-                  collapsible: true,
-                  collapsed: false,
-                  items: [
-                    { text: '1. 节点元素操作', link: '1-节点元素操作' },
-                  ]
-                }
+                
               ]
             }
           ]

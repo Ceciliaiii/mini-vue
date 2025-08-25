@@ -19,12 +19,12 @@ features:
     details: 实现数据响应式
     link: /1-reactivity/1-reactive.md
     linkText: Learn more
-  - title: runtime-core
-    details: 框架运行核心
-    link: /2-runtime-core/1-watch.md
-    linkText: Learn more
   - title: runtime-dom
-    details: 浏览器环境适配层
-    link: /3-runtime-dom/1-nodeOps.md
+    details: 浏览器环境平台
+    link: /2-runtime-dom/1-nodeOps.md
+    linkText: Learn more
+  - title: runtime-core
+    details: 跨平台渲染逻辑核心
+    link: /3-runtime-core/1-watch.md
     linkText: Learn more
 ---
