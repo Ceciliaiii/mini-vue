@@ -4,7 +4,7 @@
   "module": "dist/runtime-dom.esm-bundler.js",
   "unpkg": "dist/runtime-dom.global.js",
   "buildOptions": {
-    "name": "RuntimeDom",
+    "name": "RuntimeDOM",
     "formats": [
       "esm-bundler",
       "esm-browser",
@@ -13,6 +13,7 @@
     ]
   },
   "dependencies": {
-    "@vue/shared": "workspace:*"
+    "@vue/shared": "workspace:*",
+    "@vue/reactivity": "workspace:*"
   }
 }
