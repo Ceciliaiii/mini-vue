@@ -38,6 +38,7 @@ export default {
                   { text: '3. 清理函数', link: '3-清理函数' },
                   { text: '4. 虚拟DOM渲染', link: '4-虚拟dom渲染' },
                   { text: '5. h函数', link: '5-h函数' },
+                  { text: '6. 比较策略', link: '6-比较策略' },
                  ]
               },
           ],
