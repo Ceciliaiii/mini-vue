@@ -39,6 +39,7 @@ export default {
                   { text: '4. 虚拟DOM渲染', link: '4-虚拟dom渲染' },
                   { text: '5. h函数', link: '5-h函数' },
                   { text: '6. 比较策略', link: '6-比较策略' },
+                  { text: '7. 子节点diff对比', link: '7-子节点diff对比' },
                  ]
               },
           ],
