@@ -1,5 +1,6 @@
 import { ShapeFlags } from "@vue/shared"
 import { isSameVnode } from "./createVnode"
+import getSequence from "./seq"
 
 export function createRenderer(renderOptions) {
     // core中不关心如何渲染
@@ -180,6 +181,8 @@ export function createRenderer(renderOptions) {
       const s2 = i
 
       const keyToNewIndexMap = new Map() // 用于快速查找 看老的是否在新的里面 没有就删除 有的就更新
+      const toBePatched = e2 - s2 + 1 // 要倒序插入的个数
+     const newIndexToOldMapIndex = Array.from({ length: toBePatched }).fill(0) // 用于记录新的节点在老的里面的位置
 
 
       for (let i = s2; i <= e2; i++) {
@@ -198,6 +201,7 @@ export function createRenderer(renderOptions) {
         else {
           // 找到了
           // 比较前后节点的差异 更新属性和儿子
+        newIndexToOldMapIndex[newIndex - s2] = i + 1 // patch以后+1  ;  0 意味着以前就不存在
           patch(vnode, c2[newIndex], el)
         }
       }    
@@ -206,7 +210,7 @@ export function createRenderer(renderOptions) {
       // 可以按照新的队列 倒序插入 通过参照物往前插
 
       // 插入的过程中可能新的元素变多 需要创建
-    const toBePatched = e2 - s2 + 1 // 要倒序插入的个数
+
 
       // 先从索引为3的位置倒叙插入
       for (let i = toBePatched - 1; i >= 0; i--) {
@@ -221,6 +225,35 @@ export function createRenderer(renderOptions) {
         else {
             hostInsert(vnode.el, el, anchor) // 接着倒叙插入
           }
+      }
+
+       // 调整顺序
+      // 可以按照新的队列 倒序插入 通过参照物往前插
+
+      // 插入的过程中可能新的元素变多 需要创建
+
+      const inCreasingSeq = getSequence(newIndexToOldMapIndex)
+
+      // 先从索引为3的位置倒叙插入
+      let j = inCreasingSeq.length - 1 // 索引
+      for (let i = toBePatched - 1; i >= 0; i--) {
+        const newIndex = s2 + i // h 对应的索引 找他的下一个元素作为参照物来进行插入
+        const anchor = c2[newIndex + 1]?.el
+        const vnode = c2[newIndex]
+
+        if (!vnode.el) {
+          // 新增的元素
+          patch(null, vnode, el, anchor) // 创建h插入
+        }
+        else {
+          if (i == inCreasingSeq[j]) {
+            // 如果索引相同 跳过
+            j--
+          }
+          else {
+            hostInsert(vnode.el, el, anchor) // 接着倒叙插入
+          }
+        }
       }
     }
 
