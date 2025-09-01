@@ -1,5 +1,5 @@
 import { ShapeFlags } from "@vue/shared"
-import { isSameVnode } from "./createVnode"
+import { Fragment, isSameVnode } from "./createVnode"
 import getSequence from "./seq"
 
 export function createRenderer(renderOptions) {
@@ -329,6 +329,29 @@ export function createRenderer(renderOptions) {
         patchChildren(n1, n2, container)
     }
 
+    const processText = (n1, n2, container) => {
+
+      // 没有旧文本
+      if(n1 == null) {
+        hostInsert(n2.el = hostCreateText(n2.children), container)
+      }
+      else {
+        const el = (n2.el = n1.el)
+        if(n1.children !== n2.children) {
+          hostSetText(el, n2.children)
+        }
+      }
+    }
+
+    const processFragment = (n1, n2, container) => {
+      if(n1 == null) {
+        mountChildren(n2.children, container)
+      }
+      else {
+        patchChildren(n1, n2, container)
+      }
+    }
+
 
     // 渲染、更新走这里
     const patch = (n1, n2, container, anchor = null) => {
@@ -343,12 +366,32 @@ export function createRenderer(renderOptions) {
             n1 = null  // 直接移除老dom，执行processElment的if初始化
         }       
 
-        // 对元素进行处理
-        processElment(n1, n2, container, anchor)    
+        const { type } = n2
+        switch (type) {
+          case Text:
+            processText(n1, n2, container)
+            break;
+          case Fragment:
+            processFragment(n1, n2, container)
+            default: 
+            // 对元素进行处理
+            processElment(n1, n2, container, anchor)    
+        }
+
+        
     }
 
 
-    const unmount = (vnode) => hostRemove(vnode.el)
+    const unmount = (vnode) => {
+      if(vnode.type === Fragment) {
+        unmountChildren(vnode.children)
+      }
+      else {
+      hostRemove(vnode.el)
+      }
+
+    }
+
 
     // 多次调用render，会进行虚拟节点比较，再更新
     const render = (vnode, container) => {
@@ -360,12 +403,15 @@ export function createRenderer(renderOptions) {
                 unmount(container._vnode)
             }
         }
-
-        // 将虚拟节点vnode变成真实节点进行渲染
+        else {
+         // 将虚拟节点vnode变成真实节点进行渲染
         patch(container._vnode || null, vnode, container)
 
         // 缓存老虚拟节点
         container._vnode = vnode
+        }
+
+       
     }
     return {
         render
