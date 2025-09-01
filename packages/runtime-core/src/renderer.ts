@@ -1,6 +1,8 @@
 import { ShapeFlags } from "@vue/shared"
 import { Fragment, isSameVnode } from "./createVnode"
 import getSequence from "./seq"
+import { reactive, ReactiveEffect } from "@vue/reactivity"
+import { queueJob } from "./scheduler"
 
 export function createRenderer(renderOptions) {
     // core中不关心如何渲染
@@ -352,6 +354,56 @@ export function createRenderer(renderOptions) {
       }
     }
 
+    const mountComponent = (n2, container, anchor) => {
+      // 组件可以基于自己的状态重渲染  effect
+      const { data = () => {}, render } = n2.type
+
+      const state = reactive(data())  // 组件的状态
+
+      const instance = {
+        state,   // 状态
+        vnode: n2,  // 组件虚拟节点
+        subTree: null,  // 子树
+        isMounted: false,  // 是否挂载完成
+        update: null    // 组件的更新函数
+      }
+
+      const componentUpdateFn = () => {
+        // 要在这里区分，是第一次还是之后的
+
+        if(!instance.isMounted) {
+          const subTree = render.call(state, state)
+          patch(null, subTree, container, anchor)
+          instance.isMounted = true
+          instance.subTree = subTree
+        }
+        else {
+          // 基于状态的组件更新
+          const subTree = render.call(state, state)
+          patch(instance.subTree, subTree, container, anchor)
+          instance.subTree = subTree
+        }
+      }
+      
+
+      const update = (instance.update = () => effect.run())
+
+      const effect = new ReactiveEffect(componentUpdateFn, () => queueJob(update))
+
+      update()
+      
+    }
+
+    const processComponent = (n1, n2, container, anchor) => {
+
+      if(n1 == null) {
+        mountComponent(n2, container, anchor)
+      }
+      else {
+        // 组件更新
+      }
+    }
+
 
     // 渲染、更新走这里
     const patch = (n1, n2, container, anchor = null) => {
@@ -366,7 +418,7 @@ export function createRenderer(renderOptions) {
             n1 = null  // 直接移除老dom，执行processElment的if初始化
         }       
 
-        const { type } = n2
+        const { type, shapeFlag } = n2
         switch (type) {
           case Text:
             processText(n1, n2, container)
@@ -374,8 +426,15 @@ export function createRenderer(renderOptions) {
           case Fragment:
             processFragment(n1, n2, container)
             default: 
-            // 对元素进行处理
-            processElment(n1, n2, container, anchor)    
+            if(shapeFlag & ShapeFlags.ELEMENT )  {
+              // 对元素进行处理
+            processElment(n1, n2, container, anchor) 
+            }
+            else if(shapeFlag & ShapeFlags.COMPONENT) {
+              // 对组件的处理 函数式组件 vue3已不使用
+              processComponent(n1, n2, container, anchor)
+            }
+               
         }
 
         
