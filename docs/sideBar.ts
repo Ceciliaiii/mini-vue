@@ -40,6 +40,7 @@ export default {
                   { text: '5. h函数', link: '5-h函数' },
                   { text: '6. 比较策略', link: '6-比较策略' },
                   { text: '7. 子节点diff对比', link: '7-子节点diff对比' },
+                  { text: '8. 节点渲染', link: '8-节点渲染' },
                  ]
               },
           ],
@@ -79,6 +80,7 @@ export default {
                     { text: '2. watchEffect', link: '2-watchEffect' },
                     { text: '3. 清理函数', link: '3-清理函数' },
                     { text: '4. h函数', link: '4-h函数' },
+                    { text: '5. 节点渲染', link: '5-节点渲染' },
                   ]
                 },
                 
