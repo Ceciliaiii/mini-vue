@@ -3,6 +3,7 @@ import { Fragment, isSameVnode } from "./createVnode"
 import getSequence from "./seq"
 import { reactive, ReactiveEffect } from "@vue/reactivity"
 import { queueJob } from "./scheduler"
+import { createComponentInstance, setupComponent } from "./component"
 
 export function createRenderer(renderOptions) {
     // core中不关心如何渲染
@@ -354,118 +355,44 @@ export function createRenderer(renderOptions) {
       }
     }
 
-    // 初始化属性
-    const initProps = (instance, rawProps) => {
 
-      const props = {}
-      const attrs = {}
-      const propsOptions = instance.propsOptions || {}   // 组件中定义的
+    function setupRenderEffect(instance, container, anchor) {
+          const {render} = instance
+          const componentUpdateFn = () => {
+                    // 要在这里区分，是第一次还是之后的
 
-      if(rawProps) {
-        for(let key in rawProps) {
-          const value = rawProps[key]
+                    if(!instance.isMounted) {
+                      const subTree = render.call(instance.proxy, instance.proxy)
+                      patch(null, subTree, container, anchor)
+                      instance.isMounted = true
+                      instance.subTree = subTree
+                    }
+                    else {
+                      // 基于状态的组件更新
+                      const subTree = render.call(instance.proxy, instance.proxy)
+                      patch(instance.subTree, subTree, container, anchor)
+                      instance.subTree = subTree
+                    }
+                  }
 
-          if(key in propsOptions) {
-            props[key] = value   // props不需要深度代理，组件不能更改props
-          }
-          else {
-            attrs[key] = value
-          }
-        }
-      }
-      instance.attrs = attrs
-      instance.props = reactive(props)
+          const update = (instance.update = () => effect.run())
+
+          const effect = new ReactiveEffect(componentUpdateFn, () => queueJob(update))
+
+          update()
     }
+    
+
 
     const mountComponent = (vnode, container, anchor) => {
-      // 组件可以基于自己的状态重渲染  effect
-      const { data = () => {}, render, props: propsOptions = {} } = vnode.type
 
-      const state = reactive(data())  // 组件的状态
-
-      const instance = {
-        state,   // 状态
-        vnode, // 组件虚拟节点
-        subTree: null,  // 子树
-        isMounted: false,  // 是否挂载完成
-        update: null,    // 组件的更新函数
-        props: {},
-        attrs: {},
-        propsOptions,
-        component: null,
-        proxy: null  // 代理props attrs data，让用户更方便的访问
-      }
-
-      // 根据propsOptions区分出 props 和 attrs
-      vnode.component = instance
-      initProps(instance, vnode.props)
-
-      const publicProperty = {
-        $attrs: (instance) => instance.attrs
-        // ...
-      }
-
-      instance.proxy = new Proxy(instance, {
-        get(target, key) {
-
-          const {state, props} = target
-
-          // proxy.name 代理到 state.name
-          if(state && hasOwn(state, key)) {
-            return state[key] 
-          }
-          else if(props && hasOwn(props, key)) {
-            return props[key]
-          }
-
-         // 对于一些无法修改的属性 $slots $attrs ...    $attrs => instance.attrs
-          const getter = publicProperty[key]
-          if(getter) {
-            return getter(target)
-          }
-
-        },
-        set(target, key, value) {
-          const {state, props} = target
-
-          if(state && hasOwn(state, key)) {
-            state[key] = value
-          }
-          else if(props && hasOwn(props, key)) {
-            // props不可改
-            // 用户可以修改属性中的嵌套属性 但是不合法
-            console.warn('props are readonly')
-            return false
-          }
-          return true
-        }
-      })
-
-
-      const componentUpdateFn = () => {
-        // 要在这里区分，是第一次还是之后的
-
-        if(!instance.isMounted) {
-          const subTree = render.call(instance.proxy, instance.proxy)
-          patch(null, subTree, container, anchor)
-          instance.isMounted = true
-          instance.subTree = subTree
-        }
-        else {
-          // 基于状态的组件更新
-          const subTree = render.call(state, state)
-          patch(instance.subTree, subTree, container, anchor)
-          instance.subTree = subTree
-        }
-      }
-      
-
-      const update = (instance.update = () => effect.run())
-
-      const effect = new ReactiveEffect(componentUpdateFn, () => queueJob(update))
-
-      update()
-      
+      // 先创建组件实例
+      const instance = (vnode.component = createComponentInstance(vnode))
+      // 给实例属性赋值
+      setupComponent(instance)
+      // 创建一个effect
+      setupRenderEffect(instance, container, anchor)
+     
     }
 
     const processComponent = (n1, n2, container, anchor) => {

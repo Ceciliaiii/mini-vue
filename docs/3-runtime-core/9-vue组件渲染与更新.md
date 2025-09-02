@@ -41,13 +41,14 @@ const mountComponent = (n2, container, anchor) => {
     // ...
 };
 ```
-`render.call(state)` 以响应式状态为参数，生成 “子虚拟节点 subTree ”；`patch` 把 subTree 转为真实 DOM，插入容器；
+`render.call(state)` 以响应式状态为参数（后续参数换为`instance.proxy`区分`state、props、$attrs`），生成 “子虚拟节点 subTree ”；`patch` 把 subTree 转为真实 DOM，插入容器；
 ```ts
 // 4. 组件渲染/更新 （首次渲染 + 状态变化后更新）
   const componentUpdateFn = () => {
     if (!instance.isMounted) {
 
       // 首次渲染：执行 render 函数生成子虚拟节点
+      // 后续参数改成instance.proxy，区分state、props、$attrs
       const subTree = render.call(state, state);
 
       // 把 subTree 渲染为真实 DOM（插入 container）
