@@ -41,7 +41,8 @@ export default {
                   { text: '6. 比较策略', link: '6-比较策略' },
                   { text: '7. 子节点diff对比', link: '7-子节点diff对比' },
                   { text: '8. 节点渲染', link: '8-节点渲染' },
-                  { text: '9. vue组件渲染与更新', link: '9-vue组件渲染与更新' }
+                  { text: '9. vue组件渲染与更新', link: '9-vue组件渲染与更新' },
+                  { text: '10. 组件props & attrs', link: '10-props & attrs' }
                  ]
               },
           ],
@@ -82,7 +83,8 @@ export default {
                     { text: '3. 清理函数', link: '3-清理函数' },
                     { text: '4. h函数', link: '4-h函数' },
                     { text: '5. 节点渲染', link: '5-节点渲染' },
-                    { text: '6. vue组件渲染', link: '6-vue组件渲染' }
+                    { text: '6. vue组件渲染', link: '6-vue组件渲染' },
+                    { text: '7. 组件props & attrs', link: '7-props & attrs' }
                   ]
                 },
                 

@@ -60,7 +60,8 @@ const mountComponent = (n2, container, anchor) => {
     else {
 
       // 状态变化后更新：重新执行 render 生成新 subTree
-      const newSubTree = render.call(state, state);
+      // 后续参数改成instance.proxy，区分state、props、$attrs
+      const newSubTree = render.call(state, state);  
 
       // 对比新旧 subTree，只更新差异部分（复用 DOM）
       patch(instance.subTree, newSubTree, container, anchor);
