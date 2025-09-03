@@ -6,3 +6,5 @@ export * from './renderer'
 
 export * from './apiWatch'
 
+export * from '@vue/reactivity'
+

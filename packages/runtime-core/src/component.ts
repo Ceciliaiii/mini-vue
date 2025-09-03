@@ -1,4 +1,4 @@
-import { reactive } from "@vue/reactivity"
+import { proxyRefs, reactive } from "@vue/reactivity"
 import { hasOwn, isFunction } from "@vue/shared"
 
 export function createComponentInstance(vnode) {
@@ -12,7 +12,8 @@ export function createComponentInstance(vnode) {
         attrs: {},
         propsOptions: vnode.type.props,  // 用户声明的哪些属性是组件的属性
         component: null,
-        proxy: null  // 代理props attrs data，让用户更方便的访问
+        proxy: null,  // 代理props attrs data，让用户更方便的访问
+        setupState: {}
       }
 
       return instance
@@ -53,7 +54,7 @@ export function createComponentInstance(vnode) {
 const handler = {
               get(target, key) {
       
-                const {data, props} = target
+                const {data, props, setupState} = target
       
                 // proxy.name 代理到 state.name
                 if(data && hasOwn(data, key)) {
@@ -61,6 +62,9 @@ const handler = {
                 }
                 else if(props && hasOwn(props, key)) {
                   return props[key]
+                }
+                else if(setupState && hasOwn(setupState, key)) {
+                  return setupState[key]
                 }
       
                // 对于一些无法修改的属性 $slots $attrs ...    $attrs => instance.attrs
@@ -71,7 +75,7 @@ const handler = {
       
               },
               set(target, key, value) {
-                const {data, props} = target
+                const {data, props, setupState} = target
       
                 if(data && hasOwn(data, key)) {
                   data[key] = value
@@ -81,6 +85,9 @@ const handler = {
                   // 用户可以修改属性中的嵌套属性 但是不合法
                   console.warn('props are readonly')
                   return false
+                }
+                else if(setupState && hasOwn(setupState, key)) {
+                  setupState[key] = value;
                 }
                 return true
               }
@@ -98,7 +105,23 @@ export function setupComponent(instance) {
     instance.proxy = new Proxy(instance, handler)
 
 
-    const {data = () => {}, render} = vnode.type
+    const {data = () => {}, render, setup} = vnode.type
+
+
+    if(setup) {
+      const setupContext = {
+
+      }
+
+      const setupResult = setup(instance.props, setupContext)
+
+      if(isFunction(setupResult)) {
+        instance.render = setupResult
+      }
+      else {
+        instance.setupState = proxyRefs(setupResult)   // 将返回值做脱ref
+      }
+    }
 
     if(!isFunction(data)) {
       console.warn('data option must be a function')
@@ -106,8 +129,12 @@ export function setupComponent(instance) {
     else {
            // data中可以拿到props
     instance.data = reactive(data.call(instance.proxy))
+    }
 
-    instance.render = render
+    if(!instance.render) {
+
+      // 没有setup 用自己定义的render
+      instance.render = render
     }
 
    
