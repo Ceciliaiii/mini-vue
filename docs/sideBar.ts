@@ -43,7 +43,8 @@ export default {
                   { text: '8. 节点渲染', link: '8-节点渲染' },
                   { text: '9. vue组件渲染 & 状态更新', link: '9-vue组件渲染与状态更新' },
                   { text: '10. 组件props & attrs', link: '10-props & attrs' },
-                  { text: '11. 属性更新组件', link: '11-属性更新组件' }
+                  { text: '11. 属性更新组件', link: '11-属性更新组件' },
+                  { text: '12. setup', link: '12-setup' }
                  ]
               },
           ],
@@ -86,7 +87,8 @@ export default {
                     { text: '5. 节点渲染', link: '5-节点渲染' },
                     { text: '6. vue组件渲染', link: '6-vue组件渲染' },
                     { text: '7. 组件props & attrs', link: '7-props & attrs' },
-                    { text: '8. 属性更新组件', link: '8-属性更新组件' }
+                    { text: '8. 属性更新组件', link: '8-属性更新组件' },
+                    { text: '9. setup', link: '9-setup' }
                   ]
                 },
                 
