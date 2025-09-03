@@ -355,6 +355,13 @@ export function createRenderer(renderOptions) {
       }
     }
 
+    const updateComponentPreRender = (instance, next) => {
+      instance.next = null
+      instance.vnode = next
+
+      updateProps(instance, instance.props, next.props)
+    }
+
 
     function setupRenderEffect(instance, container, anchor) {
           const {render} = instance
@@ -368,6 +375,15 @@ export function createRenderer(renderOptions) {
                       instance.subTree = subTree
                     }
                     else {
+
+                      const {next} = instance
+
+                      if(next) {
+                        // 更新属性和插槽
+                        updateComponentPreRender(instance, next)
+                        
+                      }
+
                       // 基于状态的组件更新
                       const subTree = render.call(instance.proxy, instance.proxy)
                       patch(instance.subTree, subTree, container, anchor)
@@ -395,6 +411,69 @@ export function createRenderer(renderOptions) {
      
     }
 
+    const hasPropsChange = (prevProps, nextProps) => {
+      let nKey = Object.keys(nextProps)
+      
+      if(nKey.length !== Object.keys(prevProps).length) {
+        return true
+      }
+
+      for(let i = 0; i < nKey.length; i++) {
+        const key = nKey[i]
+
+        if(nextProps[key] !== prevProps[key]) {
+          return true
+        }
+      }
+
+      return false
+    }
+
+    const updateProps = (instance, prevProps, nextProps) => {
+
+      // 属性是否存在变化
+       if(hasPropsChange(prevProps, nextProps)) {
+
+        // 新的 覆盖 老的
+        for(let key in nextProps) {
+          instance.props[key] = nextProps[key]
+
+        }
+
+        // 删除 多余的老的
+        for(let key in instance.props) {
+          if(!(key in nextProps)) {
+            delete instance.props[key]
+          }
+        }
+       }
+    }
+
+    const shouldComponentUpdate = (n1, n2) => {
+              const {props: prevProps, children: prevChildren} = n1
+              const {props: nextProps, children: nextChildren} = n2
+
+              if(prevChildren || nextChildren) return true   // 有插槽 直接重渲染
+
+              if(prevProps === nextProps) return false
+
+              // 若属性不一致
+              return hasPropsChange(prevProps, nextProps)
+
+    }
+
+    const updateComponent = (n1, n2) => {
+      const instance = (n2.component = n1.component)  // 复用组件实例
+
+      // 更新逻辑
+      if(shouldComponentUpdate(n1, n2)) {
+        instance.next = n2
+        instance.update()
+      }
+
+      
+    }
+
     const processComponent = (n1, n2, container, anchor) => {
 
       if(n1 == null) {
@@ -402,6 +481,7 @@ export function createRenderer(renderOptions) {
       }
       else {
         // 组件更新
+        updateComponent(n1, n2)
       }
     }
 
