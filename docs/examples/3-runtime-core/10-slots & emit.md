@@ -36,3 +36,18 @@ const RenderComponent = {
 
 render(h(VueComponent, {}), app)
 ```
+
+
+## emit
+```ts
+const VueComponent = {
+    setup(props, { emit }) {
+        return (proxy) => {
+            return h('button', { onClick: () => emit('myEvent', 100) })
+        }
+    }
+}
+
+
+render(h(VueComponent, { onMyEvent: (v) => alert(v) }), app)
+```

@@ -45,7 +45,8 @@ export default {
                   { text: '10. 组件props & attrs', link: '10-props & attrs' },
                   { text: '11. 属性更新组件', link: '11-属性更新组件' },
                   { text: '12. setup', link: '12-setup' },
-                  { text: '13. slots & emit', link: '13-slots & emit' }
+                  { text: '13. slots & emit', link: '13-slots & emit' },
+                  { text: '14. 组件卸载', link: '14-组件卸载' },
                  ]
               },
           ],
