@@ -123,7 +123,19 @@ export function setupComponent(instance) {
 
     if(setup) {
       const setupContext = {
+        slots: instance.slots,
+        attrs: instance.attrs,
+        emit(event, ...payload) {
+        const eventName = `on${event[0].toUpperCase() + event.slice(1)}`
 
+        // 拿到函数
+        const handler = instance.vnode.props[eventName]
+
+        handler(...payload)
+      },
+      //  expose: (value) => {
+      //   instance.exposed = value
+      // },
       }
 
       const setupResult = setup(instance.props, setupContext)
