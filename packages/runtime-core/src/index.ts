@@ -8,3 +8,6 @@ export * from './apiWatch'
 
 export * from '@vue/reactivity'
 
+export * from './apiLifecycle'
+
+export * from './component'

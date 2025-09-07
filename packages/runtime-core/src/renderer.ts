@@ -4,6 +4,7 @@ import getSequence from "./seq"
 import { reactive, ReactiveEffect } from "@vue/reactivity"
 import { queueJob } from "./scheduler"
 import { createComponentInstance, setupComponent } from "./component"
+import { invokeArray } from "./apiLifecycle"
 
 export function createRenderer(renderOptions) {
     // core中不关心如何渲染
@@ -368,15 +369,26 @@ export function createRenderer(renderOptions) {
           const componentUpdateFn = () => {
                     // 要在这里区分，是第一次还是之后的
 
+                    const {bm, m} = instance
                     if(!instance.isMounted) {
+
+
+                      if(bm) {
+                        invokeArray(bm)
+                      }
+
                       const subTree = render.call(instance.proxy, instance.proxy)
                       patch(null, subTree, container, anchor)
                       instance.isMounted = true
                       instance.subTree = subTree
+
+                      if(m) {
+                        invokeArray(m)
+                      }
                     }
                     else {
 
-                      const {next} = instance
+                      const {next, bu, u} = instance
 
                       if(next) {
                         // 更新属性和插槽
@@ -384,10 +396,20 @@ export function createRenderer(renderOptions) {
                         
                       }
 
+                      if(bu) {
+                        invokeArray(bu)
+                      }
+
+                      
+
                       // 基于状态的组件更新
                       const subTree = render.call(instance.proxy, instance.proxy)
                       patch(instance.subTree, subTree, container, anchor)
                       instance.subTree = subTree
+
+                      if(u) {
+                        invokeArray(u)
+                      }
                     }
                   }
 
