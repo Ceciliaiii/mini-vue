@@ -133,9 +133,9 @@ export function setupComponent(instance) {
 
         handler(...payload)
       },
-      //  expose: (value) => {
-      //   instance.exposed = value
-      // },
+       expose: (value) => {
+        instance.exposed = value
+      },
       }
 
       setCurrentInstance(instance)

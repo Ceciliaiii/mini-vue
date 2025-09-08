@@ -1,7 +1,7 @@
 import { hasOwn, ShapeFlags } from "@vue/shared"
 import { Fragment, isSameVnode } from "./createVnode"
 import getSequence from "./seq"
-import { reactive, ReactiveEffect } from "@vue/reactivity"
+import { isRef, reactive, ReactiveEffect } from "@vue/reactivity"
 import { queueJob } from "./scheduler"
 import { createComponentInstance, setupComponent } from "./component"
 import { invokeArray } from "./apiLifecycle"
@@ -521,7 +521,7 @@ export function createRenderer(renderOptions) {
             n1 = null  // 直接移除老dom，执行processElment的if初始化
         }       
 
-        const { type, shapeFlag } = n2
+        const { type, shapeFlag, ref } = n2
         switch (type) {
           case Text:
             processText(n1, n2, container)
@@ -540,7 +540,19 @@ export function createRenderer(renderOptions) {
                
         }
 
-        
+        if(ref !== null) {
+
+          // n2 是dom 还是组件 还是组件有expose
+          setRef(ref, n2) 
+        }
+    }
+
+    function setRef(rawRef, vnode) {
+      let value = vnode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT ? vnode.component.exposed || vnode.component.proxy : vnode.el
+
+      if(isRef(rawRef)) {
+        rawRef.value = value
+      }
     }
 
 
