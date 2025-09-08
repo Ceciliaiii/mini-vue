@@ -363,9 +363,21 @@ export function createRenderer(renderOptions) {
       updateProps(instance, instance.props, next.props)
     }
 
+    function renderComponent(instance) {
+      const { render, vnode, proxy, attrs } = instance
+
+      if(vnode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT) {
+        return render.call(proxy, proxy)
+      }
+      else {
+        // 此写法不使用，vue3没有任何性能优化
+        return vnode.type(attrs)   // 函数式组件
+      }
+    }
+
 
     function setupRenderEffect(instance, container, anchor) {
-          const {render} = instance
+          // const {render} = instance
           const componentUpdateFn = () => {
                     // 要在这里区分，是第一次还是之后的
 
@@ -377,7 +389,7 @@ export function createRenderer(renderOptions) {
                         invokeArray(bm)
                       }
 
-                      const subTree = render.call(instance.proxy, instance.proxy)
+                      const subTree = renderComponent(instance)
                       patch(null, subTree, container, anchor)
                       instance.isMounted = true
                       instance.subTree = subTree
@@ -403,7 +415,7 @@ export function createRenderer(renderOptions) {
                       
 
                       // 基于状态的组件更新
-                      const subTree = render.call(instance.proxy, instance.proxy)
+                      const subTree = renderComponent(instance)
                       patch(instance.subTree, subTree, container, anchor)
                       instance.subTree = subTree
 
