@@ -48,7 +48,8 @@ export default {
                   { text: '13. slots & emit', link: '13-slots & emit' },
                   { text: '14. 组件卸载', link: '14-组件卸载' },
                   { text: '15. 生命周期', link: '15-生命周期' },
-                  { text: '16. ref', link: '16-ref' }
+                  { text: '16. ref', link: '16-ref' },
+                  { text: '17. 函数式组件', link: '17-函数式组件' }
                  ]
               },
           ],
@@ -95,7 +96,8 @@ export default {
                     { text: '9. setup', link: '9-setup' },
                     { text: '10. slots & emit', link: '10-slots & emit' },
                     { text: '11. 生命周期', link: '11-生命周期' },
-                    { text: '12. ref', link: '12-ref' }
+                    { text: '12. ref', link: '12-ref' },
+                    { text: '13. 函数式组件', link: '13-函数式组件' }
                   ]
                 },
                 
