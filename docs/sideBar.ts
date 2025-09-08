@@ -12,7 +12,7 @@ export default {
                   { text: '4. 依赖清理', link: '4-依赖清理' },
                   { text: '5. effect调度', link: '5-scheduler' },
                   { text: '6. 防止递归调用 & 深度代理', link: '6-防止递归调用&深度代理' },
-                  { text: '7. ref', link: '7-ref' },
+                  { text: '7. ref基础', link: '7-ref基础' },
                   { text: '8. toRef & toRefs & proxyRefs', link: '8-toRef & toRefs & proxyRefs' },
                   { text: '9. computed', link: '9-computed' },
                 ]
@@ -47,7 +47,8 @@ export default {
                   { text: '12. setup', link: '12-setup' },
                   { text: '13. slots & emit', link: '13-slots & emit' },
                   { text: '14. 组件卸载', link: '14-组件卸载' },
-                  { text: '15. 生命周期', link: '15-生命周期' }
+                  { text: '15. 生命周期', link: '15-生命周期' },
+                  { text: '16. ref', link: '16-ref' }
                  ]
               },
           ],
@@ -64,7 +65,7 @@ export default {
                     { text: '1. reactive', link: '1-reactive' },
                     { text: '2. effect', link: '2-effect' },
                     { text: '3. scheduler', link: '3-scheduler' },
-                    { text: '4. Ref', link: '4-ref' },
+                    { text: '4. ref基础', link: '4-ref基础' },
                     { text: '5. computed', link: '5-computed' }
                    ]
                 },
@@ -93,7 +94,8 @@ export default {
                     { text: '8. 属性更新组件', link: '8-属性更新组件' },
                     { text: '9. setup', link: '9-setup' },
                     { text: '10. slots & emit', link: '10-slots & emit' },
-                    { text: '11. 生命周期', link: '11-生命周期' }
+                    { text: '11. 生命周期', link: '11-生命周期' },
+                    { text: '12. ref', link: '12-ref' }
                   ]
                 },
                 
