@@ -11,3 +11,5 @@ export * from '@vue/reactivity'
 export * from './apiLifecycle'
 
 export * from './component'
+
+export * from './apiProvide'
