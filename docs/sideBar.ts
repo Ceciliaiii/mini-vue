@@ -50,7 +50,8 @@ export default {
                   { text: '15. 生命周期', link: '15-生命周期' },
                   { text: '16. ref', link: '16-ref' },
                   { text: '17. 函数式组件', link: '17-函数式组件' },
-                  { text: '18. provide & inject', link: '18-provide & inject' }
+                  { text: '18. provide & inject', link: '18-provide & inject' },
+                  { text: '19. teleport', link: '19-teleport' }
                  ]
               },
           ],
@@ -99,7 +100,8 @@ export default {
                     { text: '11. 生命周期', link: '11-生命周期' },
                     { text: '12. ref', link: '12-ref' },
                     { text: '13. 函数式组件', link: '13-函数式组件' },
-                    { text: '14. provide & inject', link: '14-provide & inject' }
+                    { text: '14. provide & inject', link: '14-provide & inject' },
+                    { text: '15. teleport', link: '15-teleport' }
                   ]
                 },
                 
