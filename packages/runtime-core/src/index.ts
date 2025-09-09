@@ -13,3 +13,5 @@ export * from './apiLifecycle'
 export * from './component'
 
 export * from './apiProvide'
+
+export * from './teleport'

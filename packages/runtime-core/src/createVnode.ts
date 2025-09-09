@@ -1,4 +1,5 @@
 import { isFunction, isObject, isString, ShapeFlags } from "@vue/shared"
+import { isTeleport } from "vue"
 
 export const Text = Symbol("Text")
 export const Fragment = Symbol("Fragment")
@@ -14,7 +15,11 @@ export function isSameVnode(n1, n2) {
 
 
 export function createVnode(type, props, children?) {
-    const shapeFlag = isString(type) ? ShapeFlags.ELEMENT : isObject(type)? ShapeFlags.STATEFUL_COMPONENT : isFunction(type) ? ShapeFlags.FUNCTIONAL_COMPONENT : 0
+    const shapeFlag = isString(type) ? 
+    ShapeFlags.ELEMENT : isTeleport(type) ? 
+    ShapeFlags.TELEPORT : isObject(type)? 
+    ShapeFlags.STATEFUL_COMPONENT : isFunction(type) ? 
+    ShapeFlags.FUNCTIONAL_COMPONENT : 0
 
     const vnode = {
         __v_isVnode: true,

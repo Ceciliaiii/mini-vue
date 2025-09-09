@@ -558,10 +558,23 @@ export function createRenderer(renderOptions) {
               // 对元素进行处理
             processElment(n1, n2, container, anchor, parentComponent) 
             }
+            else if(shapeFlag & ShapeFlags.TELEPORT) {
+                type.process(n1, n2, container, anchor, parentComponent, {
+                   mountChildren,
+                   patchChildren,
+                   move(vnode, container, anchor) {
+                    vnode.component ? vnode.component.subTree.el : vnode.el,
+                    container,
+                    anchor
+                   }
+                })
+               
+            }
             else if(shapeFlag & ShapeFlags.COMPONENT) {
               // 对组件的处理 函数式组件 vue3已不使用
               processComponent(n1, n2, container, anchor, parentComponent)
             }
+            
                
         }
 
@@ -590,6 +603,9 @@ export function createRenderer(renderOptions) {
       }
       else if(shapeFlag & ShapeFlags.COMPONENT) {
         unmount(vnode.component.subTree)
+      }
+       else if(shapeFlag & ShapeFlags.TELEPORT) {
+        vnode.type.remove(vnode, unmountChildren)
       }
       else {
         hostRemove(vnode.el)
