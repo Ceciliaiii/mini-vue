@@ -563,9 +563,10 @@ export function createRenderer(renderOptions) {
                    mountChildren,
                    patchChildren,
                    move(vnode, container, anchor) {
-                    vnode.component ? vnode.component.subTree.el : vnode.el,
+                    hostInsert(vnode.component ? vnode.component.subTree.el : vnode.el,
                     container,
                     anchor
+                    )
                    }
                 })
                
