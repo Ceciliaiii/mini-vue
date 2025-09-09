@@ -49,7 +49,8 @@ export default {
                   { text: '14. 组件卸载', link: '14-组件卸载' },
                   { text: '15. 生命周期', link: '15-生命周期' },
                   { text: '16. ref', link: '16-ref' },
-                  { text: '17. 函数式组件', link: '17-函数式组件' }
+                  { text: '17. 函数式组件', link: '17-函数式组件' },
+                  { text: '18. provide & inject', link: '18-provide & inject' }
                  ]
               },
           ],
@@ -97,7 +98,8 @@ export default {
                     { text: '10. slots & emit', link: '10-slots & emit' },
                     { text: '11. 生命周期', link: '11-生命周期' },
                     { text: '12. ref', link: '12-ref' },
-                    { text: '13. 函数式组件', link: '13-函数式组件' }
+                    { text: '13. 函数式组件', link: '13-函数式组件' },
+                    { text: '14. provide & inject', link: '14-provide & inject' }
                   ]
                 },
                 
