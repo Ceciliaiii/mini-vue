@@ -45,7 +45,7 @@ export function createRenderer(renderOptions) {
 
 
     const mountElement = (vnode, container, anchor, parentComponent) => {
-        const { type, children, props, shapeFlag } = vnode
+        const { type, children, props, shapeFlag, transition } = vnode
 
 
         // 第一次渲染的时候让虚拟节点和真实dom创建关联  vnode.el = 真实dom
@@ -68,7 +68,15 @@ export function createRenderer(renderOptions) {
             mountChildren(children, el, parentComponent)
         }
 
+
+        if(transition) {
+          transition.beforeEnter(el)
+        }
         hostInsert(el, container, anchor)
+
+        if(transition) {
+          transition.enter(el)
+        }
 
     }
 
@@ -374,17 +382,20 @@ export function createRenderer(renderOptions) {
       instance.vnode = next
 
       updateProps(instance, instance.props, next.props)
+
+      // 组件更新  更新插槽
+      Object.assign(instance.slots, next.children)
     }
 
     function renderComponent(instance) {
-      const { render, vnode, proxy, attrs } = instance
+      const { render, vnode, proxy, props, attrs, slots } = instance
 
       if(vnode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT) {
         return render.call(proxy, proxy)
       }
       else {
         // 此写法不使用，vue3没有任何性能优化
-        return vnode.type(attrs)   // 函数式组件
+        return vnode.type(attrs, { slots })   // 函数式组件
       }
     }
 
@@ -597,7 +608,8 @@ export function createRenderer(renderOptions) {
 
     const unmount = (vnode) => {
 
-      const {shapeFlag} = vnode
+      const {shapeFlag, transition, el} = vnode
+      const performRemove = hostRemove(vnode.el)
 
       if(vnode.type === Fragment) {
         unmountChildren(vnode.children)
@@ -609,7 +621,13 @@ export function createRenderer(renderOptions) {
         vnode.type.remove(vnode, unmountChildren)
       }
       else {
-        hostRemove(vnode.el)
+
+        if(transition) {
+          transition.leave(el)
+        }
+        else {
+          performRemove()
+        }
       }
 
     }

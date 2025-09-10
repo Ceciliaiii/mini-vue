@@ -1,6 +1,6 @@
 import { ShapeFlags } from "@vue/shared"
 
-export const teleport = {
+export const Teleport = {
     __isTeleport: true,
     remove(vnode, unmountChildren) {
 

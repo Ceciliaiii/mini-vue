@@ -14,4 +14,6 @@ export * from './component'
 
 export * from './apiProvide'
 
-export * from './teleport'
+export * from './components/Teleport'
+
+export * from './components/Transition'
