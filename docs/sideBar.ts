@@ -52,7 +52,8 @@ export default {
                   { text: '17. 函数式组件', link: '17-函数式组件' },
                   { text: '18. provide & inject', link: '18-provide & inject' },
                   { text: '19. teleport', link: '19-teleport' },
-                  { text: '20. transition', link: '20-transition' }
+                  { text: '20. transition', link: '20-transition' },
+                  { text: '21. keep-alive', link: '21-keep-alive' }
                  ]
               },
           ],
@@ -103,7 +104,8 @@ export default {
                     { text: '13. 函数式组件', link: '13-函数式组件' },
                     { text: '14. provide & inject', link: '14-provide & inject' },
                     { text: '15. teleport', link: '15-teleport' },
-                    { text: '16. transition', link: '16-transition' }
+                    { text: '16. transition', link: '16-transition' },
+                    { text: '17. keep-alive', link: '17-keep-alive' }
                   ]
                 },
                 
