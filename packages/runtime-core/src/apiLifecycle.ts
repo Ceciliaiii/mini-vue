@@ -8,13 +8,13 @@ export const enum LifeCycle {
 }
 
 
-const onBeforeMount = createHook(LifeCycle.BEFORE_MOUNT)
+export const onBeforeMount = createHook(LifeCycle.BEFORE_MOUNT)
 
-const onMounted = createHook(LifeCycle.MOUNTED)
+export const onMounted = createHook(LifeCycle.MOUNTED)
 
-const onBeforeUpdate = createHook(LifeCycle.BEFORE_UPDATE)
+export const onBeforeUpdate = createHook(LifeCycle.BEFORE_UPDATE)
 
-const onUpdated = createHook(LifeCycle.UPDATE)
+export const onUpdated = createHook(LifeCycle.UPDATE)
 
 
 function createHook(type) {

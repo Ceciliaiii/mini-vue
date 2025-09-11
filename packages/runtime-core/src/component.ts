@@ -16,6 +16,7 @@ export function createComponentInstance(vnode, parent) {
         proxy: null,  // 代理props attrs data，让用户更方便的访问
         setupState: {},
         parent,
+        ctx: {} as any,    // 如果是keepalive组件，就将dom api放入这个属性
         // 所有组件provide都一样
         provides: parent ? parent.provides : Object.create(null)
       }
