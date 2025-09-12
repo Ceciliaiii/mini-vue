@@ -53,7 +53,8 @@ export default {
                   { text: '18. provide & inject', link: '18-provide & inject' },
                   { text: '19. teleport', link: '19-teleport' },
                   { text: '20. transition', link: '20-transition' },
-                  { text: '21. keep-alive', link: '21-keep-alive' }
+                  { text: '21. keep-alive', link: '21-keep-alive' },
+                  { text: '22. 异步组件', link: '22-异步组件' }
                  ]
               },
           ],
@@ -105,7 +106,8 @@ export default {
                     { text: '14. provide & inject', link: '14-provide & inject' },
                     { text: '15. teleport', link: '15-teleport' },
                     { text: '16. transition', link: '16-transition' },
-                    { text: '17. keep-alive', link: '17-keep-alive' }
+                    { text: '17. keep-alive', link: '17-keep-alive' },
+                    { text: '18. 异步组件', link: '18-异步组件' }
                   ]
                 },
                 
