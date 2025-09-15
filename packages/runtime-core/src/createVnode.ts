@@ -77,7 +77,7 @@ export function setupBlock(vnode) {
 
 
 export function createElementBlock(type, props, children, patchFlag?) {
-     const vnode = createVnode(type, props, children, patchFlag)
+     return setupBlock(createVnode(type, props, children, patchFlag)) 
 }
 
 

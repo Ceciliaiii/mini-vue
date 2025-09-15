@@ -54,7 +54,8 @@ export default {
                   { text: '19. teleport', link: '19-teleport' },
                   { text: '20. transition', link: '20-transition' },
                   { text: '21. keep-alive', link: '21-keep-alive' },
-                  { text: '22. 异步组件', link: '22-异步组件' }
+                  { text: '22. 异步组件', link: '22-异步组件' },
+                  { text: '23. 靶向更新', link: '23-靶向更新' }
                  ]
               },
           ],
@@ -107,7 +108,8 @@ export default {
                     { text: '15. teleport', link: '15-teleport' },
                     { text: '16. transition', link: '16-transition' },
                     { text: '17. keep-alive', link: '17-keep-alive' },
-                    { text: '18. 异步组件', link: '18-异步组件' }
+                    { text: '18. 异步组件', link: '18-异步组件' },
+                    { text: '19. 靶向更新', link: '19-靶向更新' }
                   ]
                 },
                 
