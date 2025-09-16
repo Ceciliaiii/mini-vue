@@ -55,7 +55,8 @@ export default {
                   { text: '20. transition', link: '20-transition' },
                   { text: '21. keep-alive', link: '21-keep-alive' },
                   { text: '22. 异步组件', link: '22-异步组件' },
-                  { text: '23. 靶向更新', link: '23-靶向更新' }
+                  { text: '23. 靶向更新', link: '23-靶向更新' },
+                  { text: '24. ast编译', link: '24-ast编译' },
                  ]
               },
           ],
