@@ -1,5 +1,7 @@
 // import { CREATE_ELEMENT_VNODE, CREATE_TEST_VNODE, Fragment } from './runtimeHelper'
 
+import { CREATE_ELEMENT_VNODE, CREATE_TEST_VNODE, Fragment } from "./runtimeHelpers"
+
 export enum NodeTypes {
   ROOT,
   ELEMENT,
@@ -34,34 +36,34 @@ export enum NodeTypes {
   JS_RETURN_STATEMENT,
 }
 
-// export function createCallExpression(context, args) {
-//   const name = context.helper(CREATE_TEST_VNODE)
+export function createCallExpression(context, args) {
+  const name = context.helper(CREATE_TEST_VNODE)
 
-//   return { // createTextVnode
-//     type: NodeTypes.JS_CALL_EXPRESSION, // JS调用表达式
-//     arguments: args, // 参数
-//     callee: name,
-//   }
-// }
+  return { // createTextVnode
+    type: NodeTypes.JS_CALL_EXPRESSION, // JS调用表达式
+    arguments: args, // 参数
+    callee: name,
+  }
+}
 
-// export function createVnodeCall(context, tag, props, children) {
-//   let name
-//   if (tag !== Fragment) {
-//     name = context.helper(CREATE_ELEMENT_VNODE)
-//   }
+export function createVnodeCall(context, tag, props, children) {
+  let name
+  if (tag !== Fragment) {
+    name = context.helper(CREATE_ELEMENT_VNODE)
+  }
 
-//   return {
-//     type: NodeTypes.VNODE_CALL,
-//     tag,
-//     props,
-//     children,
-//     callee: name,
-//   }
-// }
+  return {
+    type: NodeTypes.VNODE_CALL,
+    tag,
+    props,
+    children,
+    callee: name,
+  }
+}
 
-// export function createObjectExpression(properties) {
-//   return {
-//     type: NodeTypes.JS_OBJECT_EXPRESSION,
-//     properties,
-//   }
-// }
+export function createObjectExpression(properties) {
+  return {
+    type: NodeTypes.JS_OBJECT_EXPRESSION,
+    properties,
+  }
+}

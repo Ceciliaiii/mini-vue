@@ -59,6 +59,15 @@ export default {
                   { text: '24. ast编译', link: '24-ast编译' },
                  ]
               },
+              {
+                text: '4-compiler-core',
+                base: '/4-compiler-core/',
+                collapsible: true, // 可折叠
+                collapsed: false,
+                items: [
+                  { text: '1. ast编译', link: '1-ast编译' },
+                 ]
+              },
           ],
           '/examples/': [
             {

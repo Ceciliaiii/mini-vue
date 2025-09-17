@@ -27,4 +27,8 @@ features:
     details: 跨平台渲染逻辑核心
     link: /3-runtime-core/1-watch.md
     linkText: Learn more
+  - title: compiler-core
+    details: 模板编译核心
+    link: /4-compiler-core/1-ast编译.md
+    linkText: Learn more
 ---
