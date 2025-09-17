@@ -66,6 +66,7 @@ export default {
                 items: [
                   { text: '1. ast编译', link: '1-ast编译' },
                   { text: '2. 代码转化', link: '2-代码转化' },
+                  { text: '3. 代码生成', link: '3-代码生成' }
                  ]
               },
           ],
