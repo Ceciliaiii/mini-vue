@@ -120,7 +120,7 @@ export default {
                     { text: '16. transition', link: '16-transition' },
                     { text: '17. keep-alive', link: '17-keep-alive' },
                     { text: '18. 异步组件', link: '18-异步组件' },
-                    { text: '19. 靶向更新', link: '19-靶向更新' }
+                    { text: '19. 靶向更新', link: '19-靶向更新' } 
                   ]
                 },
                 
